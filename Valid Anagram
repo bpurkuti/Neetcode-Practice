@@ -1,0 +1,34 @@
+class Solution:
+    def isAnagram(self, s: str, t: str) -> bool:    
+        # hash_maps = {}
+        # hash_mapt = {}
+        # for i in s:
+        #     hash_maps[i] = hash_maps.get(i,0)+1
+
+        # for i in t:
+        #     hash_mapt[i] = hash_mapt.get(i,0)+1
+
+        # return True if hash_maps == hash_mapt else False
+        if len(s) != len(t):
+            return False
+
+        hash_maps = {}
+        hash_mapt = {}
+        for i in s:
+            hash_maps[i] = hash_maps.get(i,0)+1
+
+        for i in t:
+            hash_mapt[i] = hash_mapt.get(i,0)+1
+
+        for i in s:
+            if hash_maps.get(i,0) != hash_mapt.get(i,0):
+                return False
+        return True
+    
+if __name__ == "__main__":
+    sol = Solution()
+    print(True) if sol.isAnagram('ddddddddddg', 'dgggggggggg') else print(False)
+
+    h = {'n': 1, 'a': 1, 't': 1}
+    print(h)
+    print(tuple(h))

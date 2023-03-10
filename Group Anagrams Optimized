@@ -1,0 +1,41 @@
+from typing import List
+
+
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        print("____________________________")
+        print("Input: ", strs)
+        res_hmap = {}
+        for s in strs:
+            hmap = {}
+            for c in s:
+                hmap[c] = hmap.get(c, 0)+1
+            print(hmap, frozenset(hmap))
+
+            if frozenset(hmap) not in res_hmap:
+                res_hmap[frozenset(hmap)] = []
+            
+            res_hmap[frozenset(hmap)].append(s)
+
+        result = list(res_hmap.values())
+        print("Result: ", result)
+        return result
+
+
+if __name__ == "__main__":
+    sol = Solution()
+    input = ["eat","tea","tan","ate","nat","bat"]
+    sol.groupAnagrams(input)
+    # [["eat","tea","ate"],["tan","nat"],["bat"]]
+
+    input = [""]
+    sol.groupAnagrams(input)
+    # [[""]]
+
+    input = ["a"]
+    sol.groupAnagrams(input)
+    # [["a"]]
+
+    input = ["ddddddddddg", "dgggggggggg"]
+    sol.groupAnagrams(input)
+    # expected output: [["dgggggggggg"],["ddddddddddg"]]

@@ -1,0 +1,56 @@
+# https://leetcode.com/problems/group-anagrams/
+
+# Brute Force Solution. However, some very large inputs triggers "time exceeded" error in leetcode
+
+class Solution:
+    # Check if given WORD is within the List of lists
+    # l here is list of lists
+    def seenList(self, l, str):
+        for i in l:
+            if str in i:
+                return True
+
+        return False
+
+# Return hashmap for a given string with letter:occurences of the letters
+    def mapHash(self, str):
+        h_map = {}
+        for i in str:
+            h_map[i] = h_map.get(i, 0)+1
+
+        return h_map
+
+    def groupAnagrams(self, strs):
+        # resulting list of lists
+        res_list = []
+        for index, key in enumerate(strs):
+            # checking if given element is in already used as key or selected into the result
+            # print("Key: ", key)
+            if not self.seenList(res_list, key):
+                key_hmap = self.mapHash(key)
+                current_list = []
+                # Add the key value to the current list
+                current_list.append(key)
+                # list comprehension to create a new list where new list only contains values AFTER the current key in input list:strs
+                li = [x for i, x in enumerate(strs) if i > index]
+                for i in li:
+                    # Compare hashmap of current element to hashmap of key and add to current list if matching
+                    # print("Comparing Key: ", i , " to ", key)
+                    if key_hmap == self.mapHash(i):
+                        # print("Adding ", i, " to list")
+                        current_list.append(i)
+                # Add current list to the resulting list of lists
+                # print("Adding current list to result")
+                res_list.append(current_list)
+        print(res_list)
+        return res_list
+
+
+# main
+if __name__ == "__main__":
+    strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
+    sol = Solution()
+    sol.groupAnagrams(strs)
+
+    input = ["ddddddddddg", "dgggggggggg"]
+    sol.groupAnagrams(input)
